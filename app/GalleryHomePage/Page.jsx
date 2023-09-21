@@ -73,7 +73,6 @@ const GalleryHomepage = () => {
         categories={categories}
         onCategoryClick={handleCategoryClick}
       />
-      <DragAndDrop />
     </div>
   );
 };

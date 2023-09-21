@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const ImageGallery = ({ images, categories, onCategoryClick }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [galleryImages, setGalleryImages] = useState(images);
+  const dragItem = useRef();
+  const dragOverItem = useRef();
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -19,7 +21,6 @@ const ImageGallery = ({ images, categories, onCategoryClick }) => {
     const [movedImage] = reorderedImages.splice(result.source.index, 1);
     reorderedImages.splice(result.destination.index, 0, movedImage);
 
-    // Update the state with the reordered images
     setGalleryImages(reorderedImages);
   };
 
@@ -51,7 +52,7 @@ const ImageGallery = ({ images, categories, onCategoryClick }) => {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {galleryImages.map((image, index) => (
+              {images.map((image, index) => (
                 <Draggable
                   key={image.id}
                   draggableId={`image-${image.id}`}
@@ -79,6 +80,22 @@ const ImageGallery = ({ images, categories, onCategoryClick }) => {
           )}
         </Droppable>
       </DragDropContext>
+
+      {/* <div className="image-cards">
+        {images.map((image, index) => (
+          <div
+            key={image.id}
+            className="image-card"
+            onDragStart={(event) => handleDragStart(event, index)}
+            onDragEnter={(event) => handleDragEnter(event, index)}
+            onDragEnd={handleDragEnd}
+            draggable
+          >
+            <img src={image.src} alt={`Image ${index}`} className="image" />
+            <span className="image-tag">{image.tag}</span>
+          </div>
+        ))}
+      </div> */}
     </div>
   );
 };
