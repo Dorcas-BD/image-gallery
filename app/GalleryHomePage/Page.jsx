@@ -1,9 +1,7 @@
-// pages/index.js
 import React, { useState, useEffect } from "react";
 import ImageGallery from "../components/ImageGallery";
 import Loading from "../components/Loading";
 import SearchBar from "../components/SearchBar";
-import DragAndDrop from "../components/DragAndDrop";
 import fetchImages from "../utils/fetchImages";
 import "../styles/GalleryHomepage.css";
 
@@ -41,27 +39,30 @@ const GalleryHomepage = () => {
   }, [selectedCategory]);
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    setSearchTerm("");
+    if (category === selectedCategory) {
+      setSelectedCategory(null); // Toggle off the selected category
+      setSearchTerm(""); // Clear the search term when toggling off category
+    } else {
+      setSelectedCategory(category);
+      setSearchTerm(""); // Clear the search term when selecting a new category
+    }
   };
 
-  const handleSearch = async (term) => {
+  const handleSearch = (term) => {
     setSearchTerm(term.toLowerCase());
     let filtered;
 
-    const categoryMatch = categories.find(
-      (category) => category.toLowerCase() === term.toLowerCase()
-    );
-
-    if (categoryMatch) {
-      const categoryImages = await fetchImages(categoryMatch);
-      setFilteredImages(categoryImages);
-    } else {
+    if (selectedCategory === null || selectedCategory === "All") {
       filtered = images.filter((image) =>
         image.tag.toLowerCase().includes(term.toLowerCase())
       );
-      setFilteredImages(filtered);
+    } else {
+      filtered = images.filter(
+        (image) => image.tag.toLowerCase() === selectedCategory.toLowerCase()
+      );
     }
+
+    setFilteredImages(filtered);
   };
 
   return (
