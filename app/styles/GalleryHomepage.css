@@ -1,0 +1,61 @@
+.categories {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.categories button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.categories button.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.image-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.image-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-card.active {
+  border: 2px solid blue;
+}
+
+.image {
+  width: 100%;
+  height: 220px; /* Maintain aspect ratio */
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+.image-tag {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+input {
+  width: 50%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ababab;
+  border-radius: 4px;
+  background-color: #e5e4e4;
+  color: #000;
+  margin: 5px;
+}
